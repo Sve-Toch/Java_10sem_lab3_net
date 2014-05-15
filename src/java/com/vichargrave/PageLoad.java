@@ -41,6 +41,14 @@ public class PageLoad {
        pi.start();
        return "<h1>Индексация страницы:"+name+"</h1>";
    }
+       @Path("find")
+     @GET
+       @Produces("text/html")
+   public String getClean(@DefaultValue("Nothing to say") @QueryParam("value") String name) {
+       
+
+        return "<h1>"+dB.search(name)+"</h1>";
+    }
      @Path("clean")
      @GET
        @Produces("text/html")

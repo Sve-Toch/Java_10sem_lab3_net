@@ -71,7 +71,7 @@ log.error("Error connection close" );
 }}
 }
 public String selectAll()
-{String result=null;
+{String result=new String();
 try (
 Statement st = c.createStatement();
 ResultSet rs = st.executeQuery("select * from WordCount");
@@ -79,7 +79,7 @@ ResultSet rs = st.executeQuery("select * from WordCount");
     while ( rs.next() ) {
  
         
-         result= rs.getObject(1) +"--"+ rs.getObject(2)+"--"+rs.getObject(3)+"--" + rs.getObject(4)+"/n";
+         result= result+rs.getObject(1) +"--"+ rs.getObject(2)+"--"+rs.getObject(3)+"--" + rs.getObject(4)+"\n";
         
     }
 } catch (SQLException e) {
@@ -87,22 +87,24 @@ log.error("Selrct errror");
 }
 return result;
 }
-public void serch(String word)
+public String search(String word)
 {
+    String result=new String();
 try (
 Statement st = c.createStatement();
 ResultSet rs = st.executeQuery("SELECT Count, Adress, Word FROM test.WordCount Where Word=\""+word+"\" Order by Count Desc ");
 ) {	
 if (!rs.next()){
-System.out.println("На ваш запрос ничего не найдено");
+result="На ваш запрос ничего не найдено";
 }
 else{System.out.println( rs.getObject(1) +"--"+ rs.getObject(2)+"--"+rs.getObject(3));
 while ( rs.next() ) {	
-System.out.println( rs.getObject(1) +"--"+ rs.getObject(2)+"--"+rs.getObject(3));
+result=result+rs.getObject(1) +"--"+ rs.getObject(2)+"--"+rs.getObject(3)+"\n";
 }}	
 } catch (SQLException e) {
 log.error("Selrct errror");
 }
+return  result;
 
 }
 }
