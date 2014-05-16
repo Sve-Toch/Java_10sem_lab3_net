@@ -70,22 +70,16 @@ log.error("Error connection close" );
 
 }}
 }
-public String selectAll()
-{String result=new String();
-try (
+public ResultSet selectAll()
+{
+ResultSet rs =null;
+try {
 Statement st = c.createStatement();
-ResultSet rs = st.executeQuery("select * from WordCount");
-) {
-    while ( rs.next() ) {
- 
-        
-         result= result+rs.getObject(1) +"--"+ rs.getObject(2)+"--"+rs.getObject(3)+"--" + rs.getObject(4)+"\n";
-        
-    }
+rs = st.executeQuery("select * from WordCount");  
 } catch (SQLException e) {
 log.error("Selrct errror");
 }
-return result;
+return rs;
 }
 public String search(String word)
 {
